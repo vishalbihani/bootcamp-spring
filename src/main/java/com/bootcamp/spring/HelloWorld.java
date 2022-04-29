@@ -1,7 +1,9 @@
 package com.bootcamp.spring;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class HelloWorld {
+    private static final String HELLO_MSG = "Hello ";
     private static final String HELLO_WORLD_MSG = "Hello World!";
     private static final String HELLO_MSG_FROM_POST = "Hello! You performed a post request successfully.";
 
@@ -37,5 +40,17 @@ public class HelloWorld {
     @PostMapping("/hello")
     public String sayHelloFromPost() {
         return HELLO_MSG_FROM_POST;
+    }
+
+    /**
+     * This method will be invoked only if the HTTP POST request
+     * hitting the endpoint contains a request body.
+     *
+     * @param name Request body will be injected by the controller
+     * @return String response
+     */
+    @PostMapping(value = "/hello", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public String sayHelloWithNameFromPost(@RequestBody String name) {
+        return HELLO_MSG + name;
     }
 }
