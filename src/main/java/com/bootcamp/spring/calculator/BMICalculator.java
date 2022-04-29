@@ -32,6 +32,6 @@ public class BMICalculator {
         if (weight > 0 && height > 0) {
             return;
         }
-        throw new IllegalArgumentException("Invalid values");
+        throw new IllegalArgumentException("Invalid height or weight value");
     }
 }
