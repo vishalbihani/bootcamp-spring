@@ -1,8 +1,8 @@
 package com.bootcamp.spring.controller;
 
+import com.bootcamp.spring.UserNotFoundException;
 import com.bootcamp.spring.dto.Credentials;
 import com.bootcamp.spring.exchange.ResponseBody;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
     private static final int STATUS_OK = 200;
-    private static final int STATUS_NOT_FOUND = 404;
+    public static final int STATUS_NOT_FOUND = 404;
     private static final String OTP = "1234";
     private static final String EMAIL = "user@bootcamp.io";
     private static final String LOGIN_SUCCESS = "Successfully logged in";
-    private static final String USER_NOT_FOUND = "User not found or invalid credentials";
+    public static final String USER_NOT_FOUND = "User not found or invalid credentials";
 
     /**
      * This method will return string response with the username and
@@ -48,12 +48,10 @@ public class LoginController {
      */
     @GetMapping("/verify")
     public ResponseEntity<ResponseBody> verifyOTP(@RequestParam(name = "email") String email,
-                                    @RequestParam(name = "otp") String otp) {
+                                    @RequestParam(name = "otp") String otp) throws UserNotFoundException {
 
-        if (!EMAIL.equals(email) || !OTP.equals(otp)) {
-            return new ResponseEntity<>(
-                    new ResponseBody(STATUS_NOT_FOUND, USER_NOT_FOUND), HttpStatus.NOT_FOUND
-            );
+        if (!isOtpValid(email, otp)) {
+            throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return new ResponseEntity<>(
                 new ResponseBody(STATUS_OK, LOGIN_SUCCESS), HttpStatus.OK
@@ -70,15 +68,17 @@ public class LoginController {
      */
     @GetMapping("/verify/{email}")
     public ResponseEntity<ResponseBody> verifyOTPPathParam(@PathVariable(name = "email") String email,
-                                     @RequestParam(name = "otp") String otp) {
+                                     @RequestParam(name = "otp") String otp) throws UserNotFoundException {
 
-        if (!EMAIL.equals(email) || !OTP.equals(otp)) {
-            return new ResponseEntity<>(
-                    new ResponseBody(STATUS_NOT_FOUND, USER_NOT_FOUND), HttpStatus.NOT_FOUND
-            );
+        if (!isOtpValid(email, otp)) {
+            throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return new ResponseEntity<>(
                 new ResponseBody(STATUS_OK, LOGIN_SUCCESS), HttpStatus.OK
         );
+    }
+
+    private boolean isOtpValid(String email, String otp) {
+        return EMAIL.equals(email) && OTP.equals(otp);
     }
 }
