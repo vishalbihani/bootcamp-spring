@@ -53,4 +53,18 @@ public class HelloWorld {
     public String sayHelloWithNameFromPost(@RequestBody String name) {
         return HELLO_MSG + name;
     }
+
+    /**
+     * This method will return string response with the username and
+     * password that was passed over the request body as application/json.
+     *
+     * @param credentials Request body
+     * @return  String response
+     */
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String login(@RequestBody Credentials credentials) {
+
+        return "Your username is " + credentials.getUsername()
+                + " and your password is " + credentials.getPassword();
+    }
 }
