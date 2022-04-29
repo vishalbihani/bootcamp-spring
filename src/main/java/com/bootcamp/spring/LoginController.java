@@ -3,6 +3,8 @@ package com.bootcamp.spring;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 public class LoginController {
     private static final String OTP = "1234";
@@ -25,9 +27,36 @@ public class LoginController {
     }
 
 
+    /**
+     * This endpoint will take email and otp as query parameters.
+     * If the required is set to true and the specific query parameter
+     * is not passed by the user in the API it will send a Bad Request error.
+     *
+     * @param email Email query parameter
+     * @param otp OTP query parameter
+     * @return String response
+     */
     @GetMapping("/verify")
     public String verifyOTP(@RequestParam(name = "email") String email,
                             @RequestParam(name = "otp") String otp) {
+
+        if (!EMAIL.equals(email) || !OTP.equals(otp)) {
+            return USER_NOT_FOUND;
+        }
+        return LOGIN_SUCCESS;
+    }
+
+    /**
+     * This endpoint will take email as path parameter and OTP as
+     * query parameter.
+     *
+     * @param email Email query parameter
+     * @param otp OTP query parameter
+     * @return String response
+     */
+    @GetMapping("/verify/{email}")
+    public String verifyOTPPathParam(@PathVariable(name = "email") String email,
+                                     @RequestParam(name = "otp") String otp) {
 
         if (!EMAIL.equals(email) || !OTP.equals(otp)) {
             return USER_NOT_FOUND;
