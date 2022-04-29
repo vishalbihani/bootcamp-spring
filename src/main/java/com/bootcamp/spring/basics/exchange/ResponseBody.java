@@ -4,11 +4,11 @@ public class ResponseBody {
 
     private int statusCode;
 
-    private String message;
+    private Object message;
 
     public ResponseBody() {}
 
-    public ResponseBody(int statusCode, String message) {
+    public ResponseBody(int statusCode, Object message) {
         this.statusCode = statusCode;
         this.message = message;
     }
@@ -21,11 +21,11 @@ public class ResponseBody {
         this.statusCode = statusCode;
     }
 
-    public String getMessage() {
+    public Object getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Object message) {
         this.message = message;
     }
 }
