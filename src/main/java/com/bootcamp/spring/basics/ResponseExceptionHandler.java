@@ -1,7 +1,7 @@
-package com.bootcamp.spring;
+package com.bootcamp.spring.basics;
 
-import com.bootcamp.spring.controller.LoginController;
-import com.bootcamp.spring.exchange.ResponseBody;
+import com.bootcamp.spring.basics.controller.LoginController;
+import com.bootcamp.spring.basics.exchange.ResponseBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

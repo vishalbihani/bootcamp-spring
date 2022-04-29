@@ -1,4 +1,4 @@
-package com.bootcamp.spring;
+package com.bootcamp.spring.basics;
 
 public class UserNotFoundException extends Exception {
 

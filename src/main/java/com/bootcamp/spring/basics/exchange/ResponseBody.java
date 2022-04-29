@@ -1,4 +1,4 @@
-package com.bootcamp.spring.exchange;
+package com.bootcamp.spring.basics.exchange;
 
 public class ResponseBody {
 

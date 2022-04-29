@@ -1,8 +1,8 @@
-package com.bootcamp.spring.controller;
+package com.bootcamp.spring.basics.controller;
 
-import com.bootcamp.spring.UserNotFoundException;
-import com.bootcamp.spring.dto.Credentials;
-import com.bootcamp.spring.exchange.ResponseBody;
+import com.bootcamp.spring.basics.UserNotFoundException;
+import com.bootcamp.spring.basics.dto.Credentials;
+import com.bootcamp.spring.basics.exchange.ResponseBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
