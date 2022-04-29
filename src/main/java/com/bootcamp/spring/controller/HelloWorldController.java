@@ -1,4 +1,4 @@
-package com.bootcamp.spring;
+package com.bootcamp.spring.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * controllers.
  */
 @RestController
-public class HelloWorld {
+public class HelloWorldController {
     private static final String HELLO_MSG = "Hello ";
     private static final String HELLO_WORLD_MSG = "Hello World!";
     private static final String HELLO_MSG_FROM_POST = "Hello! You performed a post request successfully.";

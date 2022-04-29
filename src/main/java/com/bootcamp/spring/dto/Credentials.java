@@ -1,4 +1,4 @@
-package com.bootcamp.spring;
+package com.bootcamp.spring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
