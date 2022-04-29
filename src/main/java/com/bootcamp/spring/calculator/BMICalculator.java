@@ -1,9 +1,26 @@
 package com.bootcamp.spring.calculator;
 
+import com.bootcamp.spring.calculator.dto.UserBMI;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BMICalculator {
+
+    private final List<UserBMI> userBMIList;
+
+    public BMICalculator() {
+        this.userBMIList = new ArrayList<>();
+    }
+
+    public float calculateBMI(String name, float height, float weight) {
+        float bmi = calculateBMI(height, weight);
+        userBMIList.add(
+                new UserBMI(name, height, weight, bmi)
+        );
+        return bmi;
+    }
 
     /**
      * Calculate BMI of the body.
@@ -12,7 +29,7 @@ public class BMICalculator {
      * @param weight Weight in Kgs
      * @return BMI of the body
      */
-    public float calculateBMI(float height, float weight) {
+    private float calculateBMI(float height, float weight) {
         /*
         Formula to calculate BMI is:
             BMI = weight (in kilograms) / (height (in metre))^2    kg/m^2
@@ -33,5 +50,9 @@ public class BMICalculator {
             return;
         }
         throw new IllegalArgumentException("Invalid height or weight value");
+    }
+
+    public List<UserBMI> getUserBMIList() {
+        return userBMIList;
     }
 }

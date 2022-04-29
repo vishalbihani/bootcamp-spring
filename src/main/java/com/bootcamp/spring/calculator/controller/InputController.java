@@ -17,12 +17,21 @@ public class InputController {
     BMICalculator bmiCalculator;
 
     @GetMapping("/calculator/bmi")
-    public ResponseEntity<ResponseBody> calculateBMI(@RequestParam(name = "height") float height,
+    public ResponseEntity<ResponseBody> calculateBMI(@RequestParam(name = "name") String name,
+                                                     @RequestParam(name = "height") float height,
                                                      @RequestParam(name = "weight") float weight) {
 
-        float bmi = bmiCalculator.calculateBMI(height, weight);
+        float bmi = bmiCalculator.calculateBMI(name, height, weight);
         return new ResponseEntity<>(
                 new ResponseBody(HttpStatus.OK.value(), BMI_RESULT_MSG + bmi),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/bmi/list")
+    public ResponseEntity<Object> getUserBMIList() {
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.OK.value(), bmiCalculator.getUserBMIList()),
                 HttpStatus.OK
         );
     }
