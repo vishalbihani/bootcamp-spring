@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-    private static final int STATUS_OK = 200;
-    public static final int STATUS_NOT_FOUND = 404;
     private static final String OTP = "1234";
     private static final String EMAIL = "user@bootcamp.io";
     private static final String LOGIN_SUCCESS = "Successfully logged in";
-    public static final String USER_NOT_FOUND = "User not found or invalid credentials";
+    private static final String USER_NOT_FOUND = "User not found or invalid credentials";
 
     /**
      * This method will return string response with the username and
@@ -54,7 +52,7 @@ public class LoginController {
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return new ResponseEntity<>(
-                new ResponseBody(STATUS_OK, LOGIN_SUCCESS), HttpStatus.OK
+                new ResponseBody(HttpStatus.OK.value(), LOGIN_SUCCESS), HttpStatus.OK
         );
     }
 
@@ -74,7 +72,7 @@ public class LoginController {
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
         return new ResponseEntity<>(
-                new ResponseBody(STATUS_OK, LOGIN_SUCCESS), HttpStatus.OK
+                new ResponseBody(HttpStatus.OK.value(), LOGIN_SUCCESS), HttpStatus.OK
         );
     }
 

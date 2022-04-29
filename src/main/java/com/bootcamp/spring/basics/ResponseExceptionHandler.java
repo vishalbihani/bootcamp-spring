@@ -11,11 +11,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ResponseExceptionHandler {
 
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<ResponseBody> handleUserNotFoundException() {
+    public ResponseEntity<ResponseBody> handleUserNotFoundException(UserNotFoundException e) {
 
         return new ResponseEntity<>(
-                new ResponseBody(LoginController.STATUS_NOT_FOUND, LoginController.USER_NOT_FOUND),
+                new ResponseBody(HttpStatus.NOT_FOUND.value(), e.getMessage()),
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<ResponseBody> handleUserNotFoundException(IllegalArgumentException e) {
+
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
+                HttpStatus.BAD_REQUEST
         );
     }
 }
