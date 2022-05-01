@@ -12,7 +12,7 @@ public interface BookRepositoryService {
 
     void deleteById(String id);
 
-    Book updateById(String id, Book book);
+    Book updateById(Book book);
 
     Book findById(String id);
 }

@@ -1,6 +1,7 @@
 package com.bootcamp.spring.bookstore.controller;
 
 import com.bootcamp.spring.basics.exchange.ResponseBody;
+import com.bootcamp.spring.bookstore.dto.BookResource;
 import com.bootcamp.spring.bookstore.entity.Book;
 import com.bootcamp.spring.bookstore.service.BookService;
 import org.slf4j.Logger;
@@ -28,13 +29,9 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/book/insert")
-    public ResponseEntity<ResponseBody> insertBook(@RequestBody Book book) {
-        /*
-        By default, the isNew flag in the book entity is set to true,
-        so no need to set it explicitly.
-         */
-        bookService.insert(book);
+    @PostMapping("/book")
+    public ResponseEntity<ResponseBody> insertBook(@RequestBody BookResource bookResource) {
+        bookService.insert(bookResource);
 
         return new ResponseEntity<>(
                 new ResponseBody(HttpStatus.CREATED.value(), INSERT_SUCCESSFUL),
@@ -52,7 +49,7 @@ public class BookController {
         );
     }
 
-    @DeleteMapping("/book/delete")
+    @DeleteMapping("/book")
     public ResponseEntity<ResponseBody> deleteById(@RequestParam(name = "id") String id) {
         bookService.deleteById(id);
 
@@ -63,16 +60,9 @@ public class BookController {
     }
 
 
-    @PutMapping("/book/update")
-    public ResponseEntity<ResponseBody> updateById(@RequestParam(name = "id") String id,
-                                                   @RequestBody Book book) {
-
-        /*
-        To update the existing record we need to set the isNew to false
-        in the book entity.
-         */
-        book.setNew(false);
-        Book updatedBook = bookService.updateById(id, book);
+    @PutMapping("/book")
+    public ResponseEntity<ResponseBody> updateById(@RequestBody Book book) {
+        Book updatedBook = bookService.updateById(book);
 
         return new ResponseEntity<>(
                 new ResponseBody(HttpStatus.OK.value(), updatedBook),

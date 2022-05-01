@@ -1,5 +1,6 @@
 package com.bootcamp.spring.bookstore.service;
 
+import com.bootcamp.spring.bookstore.dto.BookResource;
 import com.bootcamp.spring.bookstore.entity.Book;
 
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.List;
  */
 public interface BookService {
 
-    Book insert(Book book);
+    Book insert(BookResource bookResource);
 
     List<Book> findAll();
 
     void deleteById(String id);
 
-    Book updateById(String id, Book book);
+    Book updateById(Book book);
 
     Book findById(String id);
 
