@@ -6,9 +6,12 @@ import com.bootcamp.spring.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class BookController {
@@ -32,6 +35,16 @@ public class BookController {
         return new ResponseEntity<>(
                 new ResponseBody(HttpStatus.CREATED.value(), INSERT_SUCCESSFUL),
                 HttpStatus.CREATED
+        );
+    }
+
+    @GetMapping("/book/all")
+    public ResponseEntity<ResponseBody> findAll() {
+        List<Book> books = bookService.findAll();
+
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.OK.value(), books),
+                HttpStatus.OK
         );
     }
 }

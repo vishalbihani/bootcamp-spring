@@ -5,6 +5,8 @@ import com.bootcamp.spring.bookstore.repositoryservice.BookRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /*
  * @Service is a spring stereotype which means this class
  * contains business-logic or provides service functionalities.
@@ -22,5 +24,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book insert(Book book) {
         return repositoryService.insert(book);
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return repositoryService.findAll();
     }
 }
