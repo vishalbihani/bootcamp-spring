@@ -99,4 +99,14 @@ public class BookController {
                 HttpStatus.OK
         );
     }
+
+    @GetMapping("/book/author")
+    public ResponseEntity<ResponseBody> findByAuthorId(@RequestParam(name = "id") String authorId) {
+        List<Book> books = bookService.findByAuthorId(authorId);
+
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.OK.value(), books),
+                HttpStatus.OK
+        );
+    }
 }

@@ -19,4 +19,6 @@ public interface BookService {
     Book updateById(String id, Book book);
 
     Book findById(String id);
+
+    List<Book> findByAuthorId(String authorId);
 }

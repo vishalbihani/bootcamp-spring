@@ -5,6 +5,7 @@ import com.bootcamp.spring.bookstore.repositoryservice.BookRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -44,5 +45,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findById(String id) {
         return repositoryService.findById(id);
+    }
+
+    @Override
+    public List<Book> findByAuthorId(String authorId) {
+        List<Book> books = findAll();
+        List<Book> filteredBooks = new ArrayList<>();
+
+        for (Book book : books) {
+            if (authorId.equals(book.getAuthorId())) {
+                filteredBooks.add(book);
+            }
+        }
+        return filteredBooks;
     }
 }
