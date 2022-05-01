@@ -20,7 +20,7 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
 
     @Override
     public List<Book> findAll() {
-        return (List<Book>) repository.findAll();
+        return repository.findAll();
     }
 
     @Override
@@ -29,8 +29,8 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     }
 
     @Override
-    public Book updateById(String id, Book book) {
-        return repository.save(book);
+    public Book updateById(Book book) {
+        return insert(book);
     }
 
     @Override

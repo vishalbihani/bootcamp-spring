@@ -1,6 +1,8 @@
 package com.bootcamp.spring.bookstore.service;
 
+import com.bootcamp.spring.bookstore.dto.BookResource;
 import com.bootcamp.spring.bookstore.entity.Book;
+import com.bootcamp.spring.bookstore.entity.Inventory;
 import com.bootcamp.spring.bookstore.repositoryservice.BookRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,20 @@ public class BookServiceImpl implements BookService {
     private BookRepositoryService repositoryService;
 
     @Override
-    public Book insert(Book book) {
+    public Book insert(BookResource bookResource) {
+
+        Book book = new Book(
+                bookResource.getId(),
+                bookResource.getName(),
+                bookResource.getAuthorId()
+        );
+        Inventory inventory = new Inventory(
+                bookResource.getMaxAllowedQuantity(),
+                bookResource.getAvailableQuantity(),
+                book
+        );
+        book.setInventory(inventory);
+
         return repositoryService.insert(book);
     }
 
@@ -38,8 +53,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateById(String id, Book book) {
-        return repositoryService.updateById(id, book);
+    public Book updateById(Book book) {
+        return repositoryService.updateById(book);
     }
 
     @Override
