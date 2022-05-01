@@ -35,4 +35,9 @@ public class BookServiceImpl implements BookService {
     public void deleteById(String id) {
         repositoryService.deleteById(id);
     }
+
+    @Override
+    public Book updateById(String id, Book book) {
+        return repositoryService.updateById(id, book);
+    }
 }

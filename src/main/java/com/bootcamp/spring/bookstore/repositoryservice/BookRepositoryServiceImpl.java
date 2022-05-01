@@ -27,4 +27,9 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     public void deleteById(String id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public Book updateById(String id, Book book) {
+        return repository.save(book);
+    }
 }
