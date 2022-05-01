@@ -32,4 +32,9 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     public Book updateById(String id, Book book) {
         return repository.save(book);
     }
+
+    @Override
+    public Book findById(String id) {
+        return repository.findById(id).get();
+    }
 }

@@ -40,4 +40,9 @@ public class BookServiceImpl implements BookService {
     public Book updateById(String id, Book book) {
         return repositoryService.updateById(id, book);
     }
+
+    @Override
+    public Book findById(String id) {
+        return repositoryService.findById(id);
+    }
 }
