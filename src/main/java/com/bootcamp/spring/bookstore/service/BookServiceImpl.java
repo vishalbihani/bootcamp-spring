@@ -30,4 +30,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAll() {
         return repositoryService.findAll();
     }
+
+    @Override
+    public void deleteById(String id) {
+        repositoryService.deleteById(id);
+    }
 }

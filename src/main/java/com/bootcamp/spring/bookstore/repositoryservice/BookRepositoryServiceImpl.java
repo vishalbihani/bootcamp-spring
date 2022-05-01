@@ -22,4 +22,9 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     public List<Book> findAll() {
         return (List<Book>) repository.findAll();
     }
+
+    @Override
+    public void deleteById(String id) {
+        repository.deleteById(id);
+    }
 }

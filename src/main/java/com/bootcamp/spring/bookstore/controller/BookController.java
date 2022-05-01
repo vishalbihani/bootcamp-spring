@@ -6,16 +6,15 @@ import com.bootcamp.spring.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class BookController {
     private final String INSERT_SUCCESSFUL = "Insert successful";
+    private final String DELETE_SUCCESSFUL = "Delete successful";
+
 
     /*
      * @Autowired annotation is used to inject beans
@@ -44,6 +43,16 @@ public class BookController {
 
         return new ResponseEntity<>(
                 new ResponseBody(HttpStatus.OK.value(), books),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("/book/delete")
+    public ResponseEntity<ResponseBody> deleteById(@RequestParam(name = "id") String id) {
+        bookService.deleteById(id);
+
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.OK.value(), DELETE_SUCCESSFUL),
                 HttpStatus.OK
         );
     }
