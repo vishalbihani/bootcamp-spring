@@ -13,4 +13,6 @@ public interface BookService {
     Book insert(Book book);
 
     List<Book> findAll();
+
+    void deleteById(String id);
 }
