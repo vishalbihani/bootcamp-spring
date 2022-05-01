@@ -56,4 +56,22 @@ public class BookController {
                 HttpStatus.OK
         );
     }
+
+
+    @PutMapping("/book/update")
+    public ResponseEntity<ResponseBody> updateById(@RequestParam(name = "id") String id,
+                                                   @RequestBody Book book) {
+
+        /*
+        To update the existing record we need to set the isNew to false
+        in the book entity.
+         */
+        book.setNew(false);
+        Book updatedBook = bookService.updateById(id, book);
+
+        return new ResponseEntity<>(
+                new ResponseBody(HttpStatus.OK.value(), updatedBook),
+                HttpStatus.OK
+        );
+    }
 }

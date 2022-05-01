@@ -1,5 +1,7 @@
 package com.bootcamp.spring.bookstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -61,10 +63,23 @@ public class Book implements Persistable<String> {
     If this method returns false and no such entry exist in the DB
     then spring data will throw an exception that this id is not found
      */
+    @JsonIgnore
     public boolean isNew() {
         return isNew;
     }
 
+    /*
+    We do not want to expose the isNew flag to the outer world,
+    so we need to disable serialization but not deserialize.
+
+    Serialization: Converting java property to byte stream,
+    De-serialization: Converting byte stream to java property.
+
+    In order to achieve this we added the @JsonProperty to the
+    setter and @JsonIgnore to the isNew() method which can
+    also act as getter.
+     */
+    @JsonProperty
     public void setNew(boolean isNew) {
         this.isNew = isNew;
     }
