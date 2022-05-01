@@ -1,19 +1,14 @@
 package com.bootcamp.spring.bookstore.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.*;
 
 /**
  * An Entity which will contain the information
  * about the book, and the author id
  */
-@Table("BOOK")
-public class Book implements Persistable<String> {
+@Entity
+@Table(name = "BOOK")
+public class Book {
 
     /*
      * Spring data needs an identifier to tell which field will
@@ -21,7 +16,7 @@ public class Book implements Persistable<String> {
      * that this field is the primary key and will be unique.
      */
     @Id
-    @Column("ID")
+    @Column(name = "ID")
     private String id;
 
     /*
@@ -30,58 +25,25 @@ public class Book implements Persistable<String> {
      * which column we use @Column which takes in the
      * DB column name as the value.
      */
-    @Column("NAME")
+    @Column(name = "NAME")
     private String name;
 
-    @Column("AUTHOR_ID")
+    @Column(name = "AUTHOR_ID")
     private String authorId;
 
-    /*
-     * Some fields need to be stored in the DB, to identify such
-     * fields we use @Transient annotation.
-     */
-    @Transient
-    private boolean isNew;
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Inventory inventory;
+
+    public Book() {}
 
     public Book(String id, String name, String authorId) {
         this.id = id;
         this.name = name;
         this.authorId = authorId;
-
-        isNew = true;
     }
 
     public String getId() {
         return id;
-    }
-
-    /*
-    Spring Data uses this method to identify whether this
-    already exist in the DB or not. CrudRepository provides
-    save() method which performs the save and insert operation.
-
-    If this method returns false and no such entry exist in the DB
-    then spring data will throw an exception that this id is not found
-     */
-    @JsonIgnore
-    public boolean isNew() {
-        return isNew;
-    }
-
-    /*
-    We do not want to expose the isNew flag to the outer world,
-    so we need to disable serialization but not deserialize.
-
-    Serialization: Converting java property to byte stream,
-    De-serialization: Converting byte stream to java property.
-
-    In order to achieve this we added the @JsonProperty to the
-    setter and @JsonIgnore to the isNew() method which can
-    also act as getter.
-     */
-    @JsonProperty
-    public void setNew(boolean isNew) {
-        this.isNew = isNew;
     }
 
     public void setId(String id) {
@@ -102,5 +64,13 @@ public class Book implements Persistable<String> {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }
