@@ -5,6 +5,8 @@ import com.bootcamp.spring.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookRepositoryServiceImpl implements BookRepositoryService {
 
@@ -14,5 +16,10 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     @Override
     public Book insert(Book book) {
         return repository.save(book);
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return (List<Book>) repository.findAll();
     }
 }
