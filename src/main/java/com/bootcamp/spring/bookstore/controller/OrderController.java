@@ -1,6 +1,7 @@
 package com.bootcamp.spring.bookstore.controller;
 
 import com.bootcamp.spring.basics.exchange.ResponseBody;
+import com.bootcamp.spring.bookstore.dto.OrderItemDetails;
 import com.bootcamp.spring.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,10 @@ public class OrderController {
 
     @PostMapping("/order")
     public ResponseEntity<ResponseBody> placeOrder(@RequestBody List<String> names) {
-        bookService.order(names);
+        List<OrderItemDetails> orderItemDetails = bookService.order(names);
 
         return new ResponseEntity<>(
-                new ResponseBody(HttpStatus.CREATED.value(), "Order created successfully"),
+                new ResponseBody(HttpStatus.CREATED.value(), orderItemDetails),
                 HttpStatus.CREATED
         );
     }

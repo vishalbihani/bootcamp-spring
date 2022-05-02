@@ -1,6 +1,7 @@
 package com.bootcamp.spring.bookstore.service;
 
 import com.bootcamp.spring.bookstore.dto.BookResource;
+import com.bootcamp.spring.bookstore.dto.OrderItemDetails;
 import com.bootcamp.spring.bookstore.entity.Book;
 
 import java.util.List;
@@ -23,5 +24,5 @@ public interface BookService {
 
     List<Book> findByAuthorId(String authorId);
 
-    void order(List<String> bookNames);
+    List<OrderItemDetails> order(List<String> bookNames);
 }
