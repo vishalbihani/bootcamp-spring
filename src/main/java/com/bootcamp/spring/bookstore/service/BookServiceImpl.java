@@ -24,6 +24,9 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookRepositoryService repositoryService;
 
+    @Autowired
+    private InventoryService inventoryService;
+
     @Override
     public Book insert(BookResource bookResource) {
 
@@ -73,5 +76,19 @@ public class BookServiceImpl implements BookService {
             }
         }
         return filteredBooks;
+    }
+
+    @Override
+    public void order(List<String> bookNames) {
+        List<Book> books = repositoryService.findByNames(bookNames);
+
+        for (Book book : books) {
+            Inventory inventory = book.getInventory();
+            int availableQuantity = inventory.getAvailableQuantity();
+            --availableQuantity;
+            inventory.setAvailableQuantity(availableQuantity);
+
+            inventoryService.update(inventory);
+        }
     }
 }

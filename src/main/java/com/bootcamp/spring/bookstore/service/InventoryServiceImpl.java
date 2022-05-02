@@ -1,5 +1,6 @@
 package com.bootcamp.spring.bookstore.service;
 
+import com.bootcamp.spring.bookstore.entity.Book;
 import com.bootcamp.spring.bookstore.entity.Inventory;
 import com.bootcamp.spring.bookstore.repositoryservice.InventoryRepositoryService;
 import org.slf4j.Logger;
@@ -27,5 +28,10 @@ public class InventoryServiceImpl implements InventoryService {
             log.warn("Available quantity cannot be more than max allowed quantity");
             throw new Exception("Available quantity cannot be more than max allowed quantity");
         }
+    }
+
+    @Override
+    public Inventory update(Inventory inventory) {
+        return repositoryService.update(inventory);
     }
 }

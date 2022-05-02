@@ -37,4 +37,9 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     public Book findById(String id) {
         return repository.findById(id).get();
     }
+
+    @Override
+    public List<Book> findByNames(List<String> names) {
+        return repository.getBookByNames(names);
+    }
 }

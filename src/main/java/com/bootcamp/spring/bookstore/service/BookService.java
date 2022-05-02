@@ -22,4 +22,6 @@ public interface BookService {
     Book findById(String id);
 
     List<Book> findByAuthorId(String authorId);
+
+    void order(List<String> bookNames);
 }

@@ -15,4 +15,6 @@ public interface BookRepositoryService {
     Book updateById(Book book);
 
     Book findById(String id);
+
+    List<Book> findByNames(List<String> names);
 }
