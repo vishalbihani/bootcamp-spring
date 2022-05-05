@@ -42,4 +42,9 @@ public class BookRepositoryServiceImpl implements BookRepositoryService {
     public List<Book> findByNames(List<String> names) {
         return repository.getBookByNames(names);
     }
+
+    @Override
+    public List<Book> findByAuthorId(String authorId) {
+        return repository.findByAuthorId(authorId);
+    }
 }

@@ -34,4 +34,9 @@ public class InventoryServiceImpl implements InventoryService {
     public Inventory update(Inventory inventory) {
         return repositoryService.update(inventory);
     }
+
+    @Override
+    public int getAvailableQuantityById(String id) {
+        return repositoryService.getAvailableQuantityById(id);
+    }
 }

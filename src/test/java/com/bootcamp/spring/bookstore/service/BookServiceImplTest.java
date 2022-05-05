@@ -1,7 +1,6 @@
 package com.bootcamp.spring.bookstore.service;
 
 import com.bootcamp.spring.bookstore.dto.BookResource;
-import com.bootcamp.spring.bookstore.dto.OrderItemDetails;
 import com.bootcamp.spring.bookstore.entity.Book;
 import com.bootcamp.spring.bookstore.entity.Inventory;
 import com.bootcamp.spring.bookstore.repositoryservice.BookRepositoryService;
@@ -85,67 +84,5 @@ public class BookServiceImplTest {
         List<Book> filteredBooks = bookService.findByAuthorId("authorId");
 
         Assertions.assertEquals(0, filteredBooks.size());
-    }
-
-    @Test
-    public void testOrder() {
-        List<String> bookNames = new ArrayList<>();
-        bookNames.add("book1");
-        bookNames.add("book2");
-
-        Book book1 = new Book("1", "book1", "author1");
-        Book book2 = new Book("2", "book2", "author2");
-
-        Inventory inventory1 = new Inventory(10, 1, book1);
-        Inventory inventory2 = new Inventory(10, 0, book2);
-
-        book1.setInventory(inventory1);
-        book2.setInventory(inventory2);
-
-        List<Book> books = new ArrayList<>();
-        books.add(book1);
-        books.add(book2);
-
-        when(repositoryService.findByNames(bookNames)).thenReturn(books);
-
-        List<OrderItemDetails> orderItemDetailsList = bookService.order(bookNames);
-
-        Assertions.assertEquals(2, orderItemDetailsList.size());
-        Assertions.assertEquals("book1", orderItemDetailsList.get(0).getBookName());
-        Assertions.assertEquals("Order placed", orderItemDetailsList.get(0).getMessage());
-        Assertions.assertEquals(1, orderItemDetailsList.get(0).getQuantity());
-
-        Assertions.assertEquals("book2", orderItemDetailsList.get(1).getBookName());
-        Assertions.assertEquals("No available quantity", orderItemDetailsList.get(1).getMessage());
-        Assertions.assertEquals(0, orderItemDetailsList.get(1).getQuantity());
-
-    }
-
-    @Test
-    public void testOrderNoAvailableQuantity() {
-        List<String> bookNames = new ArrayList<>();
-        bookNames.add("book1");
-        bookNames.add("book2");
-
-        Book book1 = new Book("id1", "book1", "author1");
-        Book book2 = new Book("id2", "book2", "author2");
-
-        Inventory inventory1 = new Inventory(10, 0, book1);
-        Inventory inventory2 = new Inventory(10, 0, book2);
-
-        book1.setInventory(inventory1);
-        book2.setInventory(inventory2);
-
-        List<Book> books = new ArrayList<>();
-        books.add(book1);
-        books.add(book2);
-
-        when(repositoryService.findByNames(bookNames)).thenReturn(books);
-
-        List<OrderItemDetails> details = bookService.order(bookNames);
-
-        Assertions.assertEquals(2, details.size());
-        Assertions.assertEquals("No available quantity", details.get(0).getMessage());
-        Assertions.assertEquals("No available quantity", details.get(1).getMessage());
     }
 }

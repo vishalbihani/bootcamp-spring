@@ -7,4 +7,6 @@ public interface InventoryService {
     Inventory updateAvailableQuantity(String id, int newQuantity) throws Exception;
 
     Inventory update(Inventory inventory);
+
+    int getAvailableQuantityById(String id);
 }

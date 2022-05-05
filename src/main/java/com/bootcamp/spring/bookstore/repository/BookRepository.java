@@ -21,6 +21,16 @@ without implementation.
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
 
+    /*
+    These are not native SQL queries, JPQL language uses Class and property names instead of
+    table and column names. So it is important to ensure that your entities are properly mapped.
+
+    We can also use native query by setting the nativeQuery flag to true.
+     */
+
     @Query(value = "SELECT b FROM Book b WHERE b.name IN :names")
     List<Book> getBookByNames(@Param("names") List<String> names);
+
+    @Query(value = "SELECT b FROM Book b WHERE b.authorId = :authorId")
+    List<Book> findByAuthorId(@Param("authorId") String authorId);
 }

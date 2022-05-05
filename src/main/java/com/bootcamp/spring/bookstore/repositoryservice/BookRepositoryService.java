@@ -17,4 +17,6 @@ public interface BookRepositoryService {
     Book findById(String id);
 
     List<Book> findByNames(List<String> names);
+
+    List<Book> findByAuthorId(String authorId);
 }

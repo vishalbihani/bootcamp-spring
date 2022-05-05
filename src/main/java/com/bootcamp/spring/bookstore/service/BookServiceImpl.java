@@ -1,14 +1,11 @@
 package com.bootcamp.spring.bookstore.service;
 
 import com.bootcamp.spring.bookstore.dto.BookResource;
-import com.bootcamp.spring.bookstore.dto.OrderItemDetails;
 import com.bootcamp.spring.bookstore.entity.Book;
 import com.bootcamp.spring.bookstore.entity.Inventory;
 import com.bootcamp.spring.bookstore.repositoryservice.BookRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -68,42 +65,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findByAuthorId(String authorId) {
-        List<Book> books = findAll();
-        List<Book> filteredBooks = new ArrayList<>();
-
-        for (Book book : books) {
-            if (authorId.equals(book.getAuthorId())) {
-                filteredBooks.add(book);
-            }
-        }
-        return filteredBooks;
-    }
-
-    @Override
-    public List<OrderItemDetails> order(List<String> bookNames) {
-        List<Book> books = repositoryService.findByNames(bookNames);
-        List<OrderItemDetails> details = new ArrayList<>();
-
-        for (Book book : books) {
-            Inventory inventory = book.getInventory();
-            int availableQuantity = inventory.getAvailableQuantity();
-
-            if (availableQuantity < 1) {
-                details.add(new OrderItemDetails(
-                        book.getName(), 0, "No available quantity"
-                ));
-                continue;
-            }
-
-            --availableQuantity;
-            inventory.setAvailableQuantity(availableQuantity);
-
-            inventoryService.update(inventory);
-            details.add(new OrderItemDetails(
-                    book.getName(), 1, "Order placed"
-            ));
-        }
-
-        return details;
+        return repositoryService.findByAuthorId(authorId);
     }
 }
