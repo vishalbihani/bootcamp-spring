@@ -55,6 +55,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book updateById(Book book) {
+        book.getInventory()
+                .setBook(book);
         return repositoryService.updateById(book);
     }
 
