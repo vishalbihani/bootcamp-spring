@@ -7,4 +7,6 @@ public interface InventoryRepositoryService {
     Inventory findById(String id);
 
     Inventory update(Inventory inventory);
+
+    int getAvailableQuantityById(String id);
 }

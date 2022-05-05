@@ -20,4 +20,9 @@ public class InventoryRepositoryServiceImpl implements InventoryRepositoryServic
     public Inventory update(Inventory inventory) {
         return repository.save(inventory);
     }
+
+    @Override
+    public int getAvailableQuantityById(String id) {
+        return repository.getAvailableQuantityById(id);
+    }
 }
